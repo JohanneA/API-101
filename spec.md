@@ -77,19 +77,7 @@ Response body
      "owners": string,
      "ownerLink": string,
      "createdDate: datetime,
-     "numberOfTodos": integer,
      "todoItems": todoItem[]
- }
- ```
-
- ```
- GET /todo-lists/<id>/todo-items
- 
-Response body
-200 OK
- {
-    "numberOfTodos: integer,
-    "todoItems": todoItem[]
  }
 
 400 Bad request, 404 Not found
@@ -142,9 +130,9 @@ Response body
  {
      "self": string,
      "id": integer,
-     "owner": string,
+     "ownerId": string,
      "ownerLink": user,
-     "parent": string,
+     "parentId": string,
      "parentLink": todoListLink,
      "title": string,
      "description": string,
