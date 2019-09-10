@@ -1,3 +1,5 @@
+package api
+
 import io.ktor.application.call
 import io.ktor.response.respondText
 import io.ktor.routing.Routing
@@ -11,6 +13,10 @@ fun Routing.todoList() {
     }
 }
 
+data class TodoListPayload(
+    val name: String
+)
+
 data class TodoLists(
     val todoLists: List<TodoList>
 )
@@ -18,7 +24,7 @@ data class TodoLists(
 data class TodoList(
     val self: String,
     val id: Long,
-    val name: String,
+    var name: String,
     val ownerId: String,
     val ownerLink: User,
     val createdDate: LocalDate,

@@ -99,6 +99,8 @@ Response body
     "name": string,
     "owner": string,
     "ownerLink": string
+    "createdDate: datetime,
+    "todoItems": todoItem[]
 }
 400 Bad request
  ```

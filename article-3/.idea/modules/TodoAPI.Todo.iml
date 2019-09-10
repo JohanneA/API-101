@@ -4,11 +4,13 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../Todo">
+      <sourceFolder url="file://$MODULE_DIR$/../../Todo/src/data-stubs" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/../../Todo/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../Todo/build" />
       <excludeFolder url="file://$MODULE_DIR$/../../Todo/out" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.3.50" level="project" />
   </component>
 </module>
