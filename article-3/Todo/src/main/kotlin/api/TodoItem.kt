@@ -14,6 +14,14 @@ fun Routing.todoItem() {
     }
 }
 
+data class TodoItemPayload(
+    val title: String?,
+    val description: String?,
+    val deadline: LocalDateTime?,
+    val parentId: Int?,
+    val completed: Boolean?
+)
+
 data class TodoItems(
     val todoItems: List<TodoItem>
 )
@@ -21,13 +29,13 @@ data class TodoItems(
 data class TodoItem(
     val self: String,
     val id: Long,
-    val ownerId: String,
-    val ownerLink: User,
-    val parentId: String,
-    val parentLink: TodoList,
-    val title: String,
-    val description: String,
+    val ownerId: Int,
+    val ownerLink: String,
+    var parentId: Int,
+    var parentLink: String,
+    var title: String,
+    var description: String,
     val createdDate: LocalDate,
-    val deadline: LocalDateTime,
-    val completed: Boolean
+    var deadline: LocalDateTime,
+    var completed: Boolean
 )

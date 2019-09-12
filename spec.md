@@ -74,7 +74,7 @@ Response body
      "self": string,
      "id": integer,
      "name": string,
-     "owners": string,
+     "owners": integer,
      "ownerLink": string,
      "createdDate: datetime,
      "todoItems": todoItem[]
@@ -97,7 +97,7 @@ Response body
     "self": string,
     "id": integer,
     "name": string,
-    "owner": string,
+    "ownerId": integer,
     "ownerLink": string
     "createdDate: datetime,
     "todoItems": todoItem[]
@@ -132,10 +132,10 @@ Response body
  {
      "self": string,
      "id": integer,
-     "ownerId": string,
-     "ownerLink": user,
-     "parentId": string,
-     "parentLink": todoListLink,
+     "ownerId": int,
+     "ownerLink": string,
+     "parentId": integer,
+     "parentLink": string,
      "title": string,
      "description": string,
      "createdDate": datetime,

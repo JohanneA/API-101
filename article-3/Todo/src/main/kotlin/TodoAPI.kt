@@ -19,7 +19,7 @@ fun main(args: Array<String>) {
         }
         routing {
             get("/") {
-                call.respondText("My Example Blog", ContentType.Text.Html)
+                call.respondText("Todo API", ContentType.Text.Html)
             }
 
             user()

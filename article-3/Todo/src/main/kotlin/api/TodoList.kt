@@ -23,10 +23,10 @@ data class TodoLists(
 
 data class TodoList(
     val self: String,
-    val id: Long,
+    val id: Int,
     var name: String,
-    val ownerId: String,
-    val ownerLink: User,
+    val ownerId: Int,
+    val ownerLink: String,
     val createdDate: LocalDate,
     val todoItems: List<TodoItem>
 )

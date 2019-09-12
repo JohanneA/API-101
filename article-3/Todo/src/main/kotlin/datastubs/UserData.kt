@@ -7,12 +7,14 @@ import api.UserPayLoad
 
 
 class UserData {
-    val users = mutableListOf(
-        User("/user/1", 1, "Alice", listOf()),
-        User("/user/2", 2, "Bob", listOf())
-    )
+    companion object Data {
+        val users = mutableListOf(
+            User("/user/1", 1, "Alice", listOf()),
+            User("/user/2", 2, "Bob", listOf())
+        )
+    }
 
-    fun find(id : Long): User? {
+    fun find(id : Int): User? {
         return users.find { it.id == id }
     }
 
@@ -20,7 +22,7 @@ class UserData {
         return users
     }
 
-    fun findTodoList(id: Long): List<TodoList>? {
+    fun findTodoList(id: Int): List<TodoList>? {
         return users.find { it.id == id }?.todoLists
     }
 

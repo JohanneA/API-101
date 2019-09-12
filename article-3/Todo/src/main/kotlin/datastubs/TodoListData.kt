@@ -6,14 +6,16 @@ import java.time.LocalDate
 
 class TodoListData {
 
-    private val todoLists = mutableListOf<TodoList>(
-        TodoList("/todo-lists/1", 1, "Weekly todos", "/users/1",
-            UserData().users[0], LocalDate.now(), listOf()),
-        TodoList("/todo-lists/2", 2, "Blog todos", "/users/1",
-            UserData().users[0], LocalDate.now(), listOf())
-    )
+    companion object Data {
+        val todoLists = mutableListOf<TodoList>(
+            TodoList("/todo-lists/1", 1, "Weekly todos", 1,
+                UserData.users[0].self, LocalDate.now(), listOf()),
+            TodoList("/todo-lists/2", 2, "Blog todos", 1,
+                UserData.users[0].self, LocalDate.now(), listOf())
+        )
+    }
 
-    fun find(id : Long): TodoList? {
+    fun find(id : Int): TodoList? {
         return todoLists.find { it.id == id }
     }
 
@@ -23,15 +25,19 @@ class TodoListData {
 
     fun create(todoListPayload: TodoListPayload): TodoList {
         val id = todoLists.last().id + 1
-        return TodoList("/todo-lists/$id", id, todoListPayload.name, UserData().users[0].self,
-                UserData().users[0], LocalDate.now(), listOf())
+        val list = TodoList("/todo-lists/$id", id, todoListPayload.name, 1,
+                UserData.users[0].self, LocalDate.now(), listOf())
+
+        todoLists.add(list)
+
+        return list
     }
 
-    fun remove(id: Long) {
+    fun remove(id: Int) {
         todoLists.removeIf { it.id == id }
     }
 
-    fun update(id: Long, update: TodoListPayload): TodoList? {
+    fun update(id: Int, update: TodoListPayload): TodoList? {
         todoLists.find { it.id == id }?.name = update.name
         return todoLists.find { it.id == id }
     }
