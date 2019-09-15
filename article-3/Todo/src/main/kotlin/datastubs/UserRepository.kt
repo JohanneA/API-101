@@ -6,10 +6,9 @@ import api.TodoList
 import api.User
 import api.UserPayLoad
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 
-class UserData {
+class UserRepository {
     companion object Data {
         val users = mutableListOf(
             User("/user/1", 1, "Alice", listOf(
@@ -41,10 +40,6 @@ class UserData {
 
     fun findAll(): List<User> {
         return users
-    }
-
-    fun findTodoList(id: Int): List<TodoList>? {
-        return users.find { it.id == id }?.todoLists
     }
 
     fun create(userPayload: UserPayLoad): User {

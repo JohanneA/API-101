@@ -1,6 +1,6 @@
 package api
 
-import datastubs.UserData
+import datastubs.UserRepository
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
 import io.ktor.request.receive
@@ -8,9 +8,9 @@ import io.ktor.response.respond
 import io.ktor.routing.*
 
 fun Routing.user() {
-    val userRepository = UserData()
+    val userRepository = UserRepository()
 
-    route("/users") {
+    route("$API_PREFIX/users") {
         get("/") {
             call.respond(userRepository.findAll())
         }
@@ -42,6 +42,7 @@ fun Routing.user() {
         post("/")  {
             val body = call.receive<UserPayLoad>()
 
+            call.response.status(HttpStatusCode.Created)
             call.respond(userRepository.create(body))
         }
     }

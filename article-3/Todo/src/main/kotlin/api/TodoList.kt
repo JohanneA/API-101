@@ -1,18 +1,17 @@
 package api
 
-import datastubs.TodoListData
+import datastubs.TodoListRepository
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
 import io.ktor.request.receive
 import io.ktor.response.respond
-import io.ktor.response.respondText
 import io.ktor.routing.*
 import java.time.LocalDate
 
 fun Routing.todoList() {
-    val todoListRepository = TodoListData()
+    val todoListRepository = TodoListRepository()
 
-    route("/todo-lists") {
+    route("$API_PREFIX/todo-lists") {
         get("/") {
             call.respond(todoListRepository.findAll())
         }
@@ -32,6 +31,7 @@ fun Routing.todoList() {
         post("/") {
             val body = call.receive<TodoListPayload>()
 
+            call.response.status(HttpStatusCode.Created)
             call.respond(todoListRepository.create(body))
         }
 
