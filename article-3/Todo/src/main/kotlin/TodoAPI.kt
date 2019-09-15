@@ -9,11 +9,13 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import java.text.DateFormat
 
 fun main(args: Array<String>) {
     embeddedServer(Netty, 8080) {
         install(ContentNegotiation) {
             gson {
+                setDateFormat(DateFormat.LONG)
                 setPrettyPrinting()
             }
         }

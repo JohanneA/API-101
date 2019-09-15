@@ -1,15 +1,62 @@
 package api
 
+import datastubs.TodoListData
 import io.ktor.application.call
+import io.ktor.http.HttpStatusCode
+import io.ktor.request.receive
+import io.ktor.response.respond
 import io.ktor.response.respondText
-import io.ktor.routing.Routing
-import io.ktor.routing.get
+import io.ktor.routing.*
 import java.time.LocalDate
 
 fun Routing.todoList() {
+    val todoListRepository = TodoListData()
 
-    get("/todo-lists") {
-        call.respondText("Todo list!!")
+    route("/todo-lists") {
+        get("/") {
+            call.respond(todoListRepository.findAll())
+        }
+
+        get("/{id}") {
+            val id = call.parameters["id"]!!.toInt()
+
+            val list = todoListRepository.find(id)
+
+            if (list != null) {
+                call.respond(list)
+            } else {
+                call.response.status(HttpStatusCode.NotFound)
+            }
+        }
+
+        post("/") {
+            val body = call.receive<TodoListPayload>()
+
+            call.respond(todoListRepository.create(body))
+        }
+
+        delete("/{id}") {
+            val id = call.parameters["id"]!!.toInt()
+
+            if (todoListRepository.remove(id)) {
+                call.response.status(HttpStatusCode.OK)
+            } else {
+                call.response.status(HttpStatusCode.NotFound)
+            }
+        }
+
+        patch("/{id}") {
+            val id = call.parameters["id"]!!.toInt()
+
+            val body = call.receive<TodoListPayload>()
+            val list = todoListRepository.update(id, body)
+
+            if (list != null) {
+                call.respond(list)
+            } else {
+                call.response.status(HttpStatusCode.NotFound)
+            }
+        }
     }
 }
 
@@ -17,16 +64,12 @@ data class TodoListPayload(
     val name: String
 )
 
-data class TodoLists(
-    val todoLists: List<TodoList>
-)
-
 data class TodoList(
     val self: String,
     val id: Int,
     var name: String,
-    val ownerId: Int,
-    val ownerLink: String,
+    val userId: Int,
+    val userLink: String,
     val createdDate: LocalDate,
     val todoItems: List<TodoItem>
 )
