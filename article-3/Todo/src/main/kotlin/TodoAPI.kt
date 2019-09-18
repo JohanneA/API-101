@@ -15,7 +15,7 @@ fun main(args: Array<String>) {
     embeddedServer(Netty, 8080) {
         install(ContentNegotiation) {
             gson {
-                setDateFormat(DateFormat.LONG)
+                setDateFormat(DateFormat.SHORT)
                 setPrettyPrinting()
             }
         }

@@ -40,7 +40,9 @@
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
     <output url="file://$MODULE_DIR$/../../Todo/out/production/classes" />
     <exclude-output />
-    <content url="file://$MODULE_DIR$/../../Todo/src/main" />
+    <content url="file://$MODULE_DIR$/../../Todo/src/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../Todo/src/main/kotlin" isTestSource="false" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: io.ktor:ktor-server-netty:1.2.4" level="project" />

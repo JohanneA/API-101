@@ -4,7 +4,7 @@
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../Todo">
-      <sourceFolder url="file://$MODULE_DIR$/../../Todo/test" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/../../Todo/src/test" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../../Todo/src" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="1.8.0_202" jdkType="JavaSDK" />

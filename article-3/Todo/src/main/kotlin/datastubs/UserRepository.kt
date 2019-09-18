@@ -6,6 +6,7 @@ import api.TodoList
 import api.User
 import api.UserPayLoad
 import java.time.LocalDate
+import java.util.*
 
 
 class UserRepository {
@@ -14,21 +15,21 @@ class UserRepository {
             User("/user/1", 1, "Alice", listOf(
 
             TodoList("/todo-lists/1", 1, "Weekly todos", 1,
-                "/user/1", LocalDate.now(), listOf(
+                "/user/1", Date(), listOf(
                     TodoItem("/todo-items/1", 1, 1, "/user/1",
                     1, "/todo-lists/1", "Go to the gym",
-                    "Do upper body workout", LocalDate.now(), LocalDate.now(), false)
+                    "Do upper body workout", Date(), Date(), false)
                 ,
                 TodoItem("/todo-items/2", 2, 1,  "/user/1", 1,
                     "/todo-lists/1", "Grocery shopping",
-                    "Get carrots", LocalDate.now(), LocalDate.now(), false)
+                    "Get carrots", Date(), Date(), false)
                 )
             ),
             TodoList("/todo-lists/2", 2, "Blog todos", 1,
-                "/user/1", LocalDate.now(), listOf(
+                "/user/1", Date(), listOf(
                     TodoItem("/todo-items/3", 3, 1, "/user/1",
                         2, "/todo-lists/2", "Create illustrations",
-                        "Figure out the illustration and do it", LocalDate.now(), LocalDate.now(), false)
+                        "Figure out the illustration and do it", Date(), Date(), false)
                 )))),
             User("/user/2", 2, "Bob", listOf())
         )

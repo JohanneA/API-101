@@ -1,6 +1,6 @@
 # Todo API
 
-Example accompanying this [blog post]()
+Example accompanying this [blog post](https://medium.com/@JohanneA/api-101-the-basics-of-building-a-restful-api-6f4a2f6afbaf)
 
 ### How to run
 

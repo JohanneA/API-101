@@ -7,6 +7,7 @@ import io.ktor.request.receive
 import io.ktor.response.respond
 import io.ktor.routing.*
 import java.time.LocalDate
+import java.util.*
 
 fun Routing.todoList() {
     val todoListRepository = TodoListRepository()
@@ -70,6 +71,6 @@ data class TodoList(
     var name: String,
     val userId: Int,
     val userLink: String,
-    val createdDate: LocalDate,
+    val createdDate: Date,
     val todoItems: List<TodoItem>
 )

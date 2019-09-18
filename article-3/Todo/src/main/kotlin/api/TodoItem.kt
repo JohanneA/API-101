@@ -7,6 +7,7 @@ import io.ktor.request.receive
 import io.ktor.response.respond
 import io.ktor.routing.*
 import java.time.LocalDate
+import java.util.*
 
 fun Routing.todoItem() {
     val todoItemRepository = TodoItemRepository()
@@ -63,7 +64,7 @@ fun Routing.todoItem() {
 data class TodoItemPayload(
     val title: String?,
     val description: String?,
-    val deadline: LocalDate?,
+    val deadline: Date?,
     val parentId: Int?,
     val completed: Boolean?
 )
@@ -77,7 +78,7 @@ data class TodoItem(
     var parentLink: String,
     var title: String,
     var description: String,
-    val createdDate: LocalDate,
-    var deadline: LocalDate,
+    val createdDate: Date,
+    var deadline: Date,
     var completed: Boolean
 )
