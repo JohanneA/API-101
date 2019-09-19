@@ -1,6 +1,9 @@
 package api
 
+import com.google.gson.JsonSyntaxException
 import datastubs.TodoItemRepository
+import datastubs.TodoListRepository
+import io.ktor.application.ApplicationCall
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
 import io.ktor.request.receive
@@ -30,10 +33,20 @@ fun Routing.todoItem() {
         }
 
         post("/") {
-            val body = call.receive<TodoItemPayload>()
+            try {
+                val body = call.receive<TodoItemPayload>()
 
-            call.response.status(HttpStatusCode.Created)
-            call.respond(todoItemRepository.create(body))
+                if(body.validate()) {
+                    call.response.status(HttpStatusCode.Created)
+                    call.respond(todoItemRepository.create(body))
+                } else {
+                    call.respond(HttpStatusCode.NotFound, "No todo list with id: ${body.parentId}")
+                }
+
+
+            } catch (e: JsonSyntaxException) {
+                call.respond(HttpStatusCode.BadRequest, "Invalid JSON: ${e.cause?.message}")
+            }
         }
 
         delete("/{id}") {
@@ -49,13 +62,17 @@ fun Routing.todoItem() {
         patch("/{id}") {
             val id = call.parameters["id"]!!.toLong()
 
-            val body = call.receive<TodoItemPayload>()
-            val list = todoItemRepository.update(id, body)
+            try {
+                val body = call.receive<TodoItemPayload>()
+                val list = todoItemRepository.update(id, body)
 
-            if (list != null) {
-                call.respond(list)
-            } else {
-                call.response.status(HttpStatusCode.NotFound)
+                if (list != null) {
+                    call.respond(list)
+                } else {
+                    call.response.status(HttpStatusCode.NotFound)
+                }
+            } catch(e: JsonSyntaxException) {
+                call.respond(HttpStatusCode.BadRequest, "Invalid JSON: ${e.cause?.message}")
             }
         }
     }
@@ -67,7 +84,13 @@ data class TodoItemPayload(
     val deadline: Date?,
     val parentId: Int?,
     val completed: Boolean?
-)
+) {
+
+    fun validate(): Boolean {
+        val list = TodoListRepository.todoLists
+        return list.any { it.id == this.parentId }
+    }
+}
 
 data class TodoItem(
     val self: String,

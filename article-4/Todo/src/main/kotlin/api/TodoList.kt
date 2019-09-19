@@ -1,5 +1,6 @@
 package api
 
+import com.google.gson.JsonSyntaxException
 import datastubs.TodoListRepository
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
@@ -30,10 +31,17 @@ fun Routing.todoList() {
         }
 
         post("/") {
-            val body = call.receive<TodoListPayload>()
 
-            call.response.status(HttpStatusCode.Created)
-            call.respond(todoListRepository.create(body))
+            try {
+                val body = call.receive<TodoListPayload>()
+
+                call.response.status(HttpStatusCode.Created)
+                call.respond(todoListRepository.create(body))
+
+            } catch (e: JsonSyntaxException) {
+                call.respond(HttpStatusCode.BadRequest, "Invalid JSON: ${e.cause?.message}")
+            }
+
         }
 
         delete("/{id}") {
@@ -47,15 +55,21 @@ fun Routing.todoList() {
         }
 
         patch("/{id}") {
-            val id = call.parameters["id"]!!.toInt()
 
-            val body = call.receive<TodoListPayload>()
-            val list = todoListRepository.update(id, body)
+            try {
+                val id = call.parameters["id"]!!.toInt()
 
-            if (list != null) {
-                call.respond(list)
-            } else {
-                call.response.status(HttpStatusCode.NotFound)
+                val body = call.receive<TodoListPayload>()
+                val list = todoListRepository.update(id, body)
+
+                if (list != null) {
+                    call.respond(list)
+                } else {
+                    call.response.status(HttpStatusCode.NotFound)
+                }
+
+            } catch (e: JsonSyntaxException) {
+                call.respond(HttpStatusCode.BadRequest, "Invalid JSON: ${e.cause?.message}")
             }
         }
     }

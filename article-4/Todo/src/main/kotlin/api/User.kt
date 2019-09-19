@@ -1,5 +1,6 @@
 package api
 
+import com.google.gson.JsonSyntaxException
 import datastubs.UserRepository
 import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
@@ -40,10 +41,15 @@ fun Routing.user() {
         }
 
         post("/")  {
-            val body = call.receive<UserPayLoad>()
+            try {
+                val body = call.receive<UserPayLoad>()
 
-            call.response.status(HttpStatusCode.Created)
-            call.respond(userRepository.create(body))
+                call.response.status(HttpStatusCode.Created)
+                call.respond(userRepository.create(body))
+
+            } catch (e: JsonSyntaxException) {
+                call.respond(HttpStatusCode.BadRequest, "Invalid JSON: ${e.cause?.message}")
+            }
         }
     }
 }
