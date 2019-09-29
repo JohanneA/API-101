@@ -5,6 +5,7 @@ import api.TodoItem
 import api.TodoList
 import api.User
 import api.UserPayLoad
+import io.ktor.auth.UserPasswordCredential
 import java.time.LocalDate
 import java.util.*
 
@@ -50,6 +51,10 @@ class UserRepository {
         users.add(user)
 
         return user
+    }
+
+    fun findByCredentials(credential: UserPasswordCredential): User {
+        return users.first()
     }
 }
 
