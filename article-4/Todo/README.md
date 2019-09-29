@@ -14,3 +14,21 @@ run the main method.
 Or download the repository, then you can open Intellij and choose File > Open and then navigate to the 
 folder. If you click on the `build.gradle` file Intellij should prompt you to import it is a project. 
 Click yes and watch the magic happen. 
+
+### Authentication
+
+Send a POST request to `localhost:8080/login` with the body
+```json
+{
+	"name": "Hi",
+	"password": "123456"
+}
+```
+
+You could enter whatever credentials you want since we don't have a data store yet. 
+
+This returns a token, which you need to put in the authentication header of any requests to the resources
+like so:
+```json
+Authentication Bearer <token>
+```
